@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Web Player - Premium Clone</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-brands fa-spotify spotify-icon"></i>
+                <span class="logo-text">Spotify<span class="premium-badge">Clone</span></span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="nav-item active" id="btn-home">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+                <div class="search-box-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search songs, artists..." autocomplete="off">
+                </div>
+            </nav>
+
+            <div class="library">
+                <div class="library-header">
+                    <i class="fa-solid fa-music"></i>
+                    <span>Your Playlists</span>
+                </div>
+                <div class="playlists-container" id="playlists-list">
+                    <!-- Dynamic Playlists will be loaded here -->
+                    <div class="loading-placeholder">Loading playlists...</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Panel -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="main-header">
+                <div class="header-nav">
+                    <button class="nav-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span>Developer</span>
+                </div>
+            </header>
+
+            <!-- Hero Playlist View -->
+            <section class="hero-section" id="hero-banner">
+                <div class="hero-cover-container">
+                    <img src="/static/images/album_lofi.png" id="hero-cover" alt="Playlist Cover">
+                </div>
+                <div class="hero-details">
+                    <span class="playlist-type">PLAYLIST</span>
+                    <h1 id="hero-title">Chill Beats for Coding</h1>
+                    <p id="hero-description">Relaxing tracks to keep you focused.</p>
+                    <div class="hero-meta">
+                        <i class="fa-brands fa-spotify"></i>
+                        <strong>Spotify Clone</strong>
+                        <span id="hero-track-count">&bull; 0 songs</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions Bar (Play button, hearts, etc.) -->
+            <div class="action-buttons-bar">
+                <button class="play-btn-large" id="play-all-btn">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="secondary-action-btn"><i class="fa-regular fa-heart"></i></button>
+                <button class="secondary-action-btn"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <!-- Songs List -->
+            <section class="songs-section">
+                <div class="table-header">
+                    <div class="col-index">#</div>
+                    <div class="col-title">Title</div>
+                    <div class="col-album">Album</div>
+                    <div class="col-duration"><i class="fa-regular fa-clock"></i></div>
+                </div>
+                <div class="songs-container" id="songs-list">
+                    <!-- Dynamic songs will be loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Audio element -->
+        <audio id="audio-player"></audio>
+
+        <!-- Playback Controller Bar (Bottom) -->
+        <footer class="player-bar">
+            <!-- Currently Playing Info -->
+            <div class="playing-track-info">
+                <div class="track-cover-container">
+                    <img src="" id="player-cover" alt="" class="hidden">
+                    <div class="cover-fallback" id="player-cover-fallback">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                </div>
+                <div class="track-text">
+                    <div class="track-title" id="player-title">No Song Selected</div>
+                    <div class="track-artist" id="player-artist">Select a track to start playing</div>
+                </div>
+                <button class="like-btn" id="like-track-btn"><i class="fa-regular fa-heart"></i></button>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn" id="btn-shuffle" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+                    <button class="control-btn" id="btn-prev" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="play-pause-btn" id="btn-play-pause" title="Play"><i class="fa-solid fa-play"></i></button>
+                    <button class="control-btn" id="btn-next" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+                    <button class="control-btn" id="btn-repeat" title="Repeat"><i class="fa-solid fa-repeat"></i></button>
+                </div>
+                
+                <div class="progress-container">
+                    <span class="time-stamp" id="current-time">0:00</span>
+                    <div class="progress-bar-wrapper" id="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                        <div class="progress-handle" id="progress-handle"></div>
+                    </div>
+                    <span class="time-stamp" id="total-duration">0:00</span>
+                </div>
+            </div>
+
+            <!-- Extra Volume / Display Controls -->
+            <div class="volume-controls">
+                <button class="volume-btn" id="btn-volume" title="Mute/Unmute"><i class="fa-solid fa-volume-high"></i></button>
+                <div class="volume-bar-wrapper" id="volume-bar-container">
+                    <div class="volume-bar-fill" id="volume-bar-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

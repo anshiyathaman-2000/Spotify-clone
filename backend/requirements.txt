@@ -1,1 +1,5 @@
 fastapi[standard]
+sqlmodel
+scikit-learn
+pandas
+numpy

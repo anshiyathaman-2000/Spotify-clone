@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  spotify-clone:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spotify-clone-app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:////app/backend/db/spotify.db
+      - PORT=8000
+    volumes:
+      - spotify_data:/app/backend/db
+    restart: unless-stopped
+
+volumes:
+  spotify_data:
